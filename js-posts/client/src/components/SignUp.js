@@ -95,8 +95,8 @@ function SignUp(props) {
                 onChange={(event) => setLastName(event.target.value)}
               />
             </div>
-            {errors.firstName?.type === "required" && (
-              <p className="text-red-500">First name is required</p>
+            {errors.lastName?.type === "required" && (
+              <p className="text-red-500">Last name is required</p>
             )}
             <div className="flex justify-center my-3">
               <input

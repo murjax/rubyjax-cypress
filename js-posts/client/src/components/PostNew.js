@@ -81,7 +81,10 @@ function PostNew(props) {
             <p className="text-red-500">Description is required</p>
           )}
 
-          <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded cursor-pointer">
+          <button
+            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded cursor-pointer"
+            data-test-id="save-post"
+          >
             Save
           </button>
         </form>

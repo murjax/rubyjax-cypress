@@ -12,17 +12,20 @@ function Navigation(props) {
         <Link
           to="/posts"
           className="p-2 rounded-md text-black font-medium hover:bg-slate-100"
+          data-test-id="nav-post-index"
         >
           View Posts
         </Link>
         <Link
           to="/posts/new"
           className="p-2 rounded-md text-black font-medium hover:bg-slate-100"
+          data-test-id="nav-post-new"
         >
           Create Post
         </Link>
         <button
           className="p-2 rounded-md text-black font-medium hover:bg-slate-100"
+          data-test-id="nav-sign-out"
           onClick={() => {
             props.onSignOut();
             navigate('/');
@@ -42,12 +45,14 @@ function Navigation(props) {
         <Link
           to="/sign_in"
           className="p-2 rounded-md text-black font-medium hover:bg-slate-100"
+          data-test-id="nav-sign-in"
         >
           Sign In
         </Link>
         <Link
           to="/sign_up"
           className="p-2 rounded-md text-black font-medium hover:bg-slate-100"
+          data-test-id="nav-sign-up"
         >
           Register
         </Link>

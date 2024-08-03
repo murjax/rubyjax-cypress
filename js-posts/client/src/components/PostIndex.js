@@ -96,18 +96,21 @@ function PostIndex(props) {
                 <Link
                   to={`${post.id}`}
                   className="block text-sm antialiased font-medium leading-normal text-blue-400"
+                  data-test-id="show-post"
                 >
                   View
                 </Link>
                 <Link
                   to={`${post.id}/edit`}
                   className="block text-sm antialiased font-medium leading-normal text-blue-400"
+                  data-test-id="edit-post"
                 >
                   Edit
                 </Link>
                 <button
                   className="block text-sm antialiased font-medium leading-normal text-red-400"
                   onClick={() => handleDelete(post.id)}
+                  data-test-id="delete-post"
                 >
                   Delete
                 </button>
