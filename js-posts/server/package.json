@@ -1,0 +1,24 @@
+{
+  "name": "posts-server",
+  "version": "1.0.0",
+  "description": "Posts Server",
+  "main": "index.js",
+  "scripts": {
+    "db:create": "node knex_create.js",
+    "db:drop": "node knex_drop.js",
+    "db:migrate": "knex migrate:latest",
+    "db:reset": "node knex_drop.js && node knex_create.js && knex migrate:latest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "pg": "^8.12.0"
+  }
+}
