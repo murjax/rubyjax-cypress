@@ -7,7 +7,8 @@
     "db:create": "node knex_create.js",
     "db:drop": "node knex_drop.js",
     "db:migrate": "knex migrate:latest",
-    "db:reset": "node knex_drop.js && node knex_create.js && knex migrate:latest"
+    "db:reset": "node knex_drop.js && node knex_create.js && knex migrate:latest",
+    "db:truncate": "node knex_truncate.js"
   },
   "author": "",
   "license": "ISC",

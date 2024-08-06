@@ -90,34 +90,6 @@ function App() {
       </RouterProvider>
     </div>
   );
-
-  // return (
-  //   <Router>
-  //     <Navigation authToken={authToken} />
-  //     <Routes>
-  //       <Route path="/" exact component={Home} />
-  //     </Routes>
-  //   </Router>
-  // );
-
-  // if (authToken) {
-  //   return (
-  //     <div className="App">
-  //       <Navigation authToken={authToken} />
-  //       <p>Authenticated</p>
-  //     </div>
-  //   );
-  // }
-  //
-  // return (
-  //   <div className="App">
-  //     <Navigation />
-  //     <Login onSignIn={(token) => {
-  //       localStorage.setItem('js-posts-auth-token', token);
-  //       setAuthToken(token);
-  //     }}/>
-  //   </div>
-  // );
 }
 
 export default App;

@@ -23,3 +23,24 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('resetdb', () => {
+  cy.exec('cd ../server && npm run db:truncate', { log: true });
+});
+
+Cypress.Commands.add('factorydb', (table, attrs) => {
+  cy.request({
+    method: 'POST',
+    url: `http://localhost:3001/${table}`,
+    headers: {
+      'Authorization': localStorage.getItem('js-posts-auth-token')
+    },
+    body: attrs
+  });
+});
+
+Cypress.Commands.add('login', { prevSubject: true }, (subject, credentials) => {
+  cy.request('POST', `http://localhost:3001/login`, credentials).then((response) => {
+    localStorage.setItem('js-posts-auth-token', response.body.token);
+  });
+});
