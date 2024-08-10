@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const postsController = require('./src/postsController');
+const commentsController = require('./src/commentsController');
 const usersController = require('./src/usersController');
 const app = express();
 const port = 3001;
@@ -39,6 +40,12 @@ app.get('/posts/:id', authenticateUser, postsController.show);
 app.post('/posts', authenticateUser, postsController.create);
 app.put('/posts/:id', authenticateUser, postsController.update);
 app.delete('/posts/:id', authenticateUser, postsController.destroy);
+
+app.get('/comments', authenticateUser, commentsController.index);
+app.get('/comments/:id', authenticateUser, commentsController.show);
+app.post('/comments', authenticateUser, commentsController.create);
+app.put('/comments/:id', authenticateUser, commentsController.update);
+app.delete('/comments/:id', authenticateUser, commentsController.destroy);
 
 app.get('/users', usersController.index);
 app.get('/users/:id', usersController.show);

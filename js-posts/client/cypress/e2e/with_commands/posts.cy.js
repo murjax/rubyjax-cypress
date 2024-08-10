@@ -24,10 +24,26 @@ describe('posts crud', function() {
   });
 
   it('show', function() {
+    const responseData = {comments: []};
+    const comments = [
+      'Comment One',
+      'Comment Two',
+      'Comment Three'
+    ]
     cy.factorydb('posts', {
       name: 'Post Name',
       description: 'Post Description'
+    }).then((response) => {
+      const post = response.body[0];
+      responseData.post = post;
+
+      comments.forEach((comment) => {
+        cy.factorydb('comments', {post_id: post.id, text: comment}).then((response) => {
+          responseData.comments.push(response.body[0]);
+        });
+      });
     });
+
     cy.visit('/');
 
     cy.get('[data-test-id="nav-post-index"]').click();
@@ -35,6 +51,10 @@ describe('posts crud', function() {
     cy.get('tbody').should('contain', 'Post Name');
     cy.get('tbody').should('contain', 'Post Description');
     cy.get('tbody').should('contain', 'Test User');
+
+    comments.forEach((comment) => {
+      cy.get('[data-test-id="comment-list"]').should('contain', comment);
+    });
   });
 
   it('new', function() {
