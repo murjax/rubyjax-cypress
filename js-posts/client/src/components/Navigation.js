@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './../AuthProvider';
 
 function Navigation(props) {
   const navigate = useNavigate();
+  const { token, logout } = useAuth();
 
   const authenticatedOptions = () => {
-    if (!props.authToken) { return; }
+    if (!token) { return; }
 
     return (
       <div>
@@ -27,7 +29,7 @@ function Navigation(props) {
           className="p-2 rounded-md text-black font-medium hover:bg-slate-100"
           data-test-id="nav-sign-out"
           onClick={() => {
-            props.onSignOut();
+            logout();
             navigate('/');
           }}
         >
@@ -38,7 +40,7 @@ function Navigation(props) {
   };
 
   const unauthenticatedOptions = () => {
-    if (props.authToken) { return; }
+    if (token) { return; }
 
     return (
       <div>

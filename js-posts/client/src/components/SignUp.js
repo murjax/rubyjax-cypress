@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './../AuthProvider';
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState('');
@@ -9,6 +10,7 @@ function SignUp(props) {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const {
     register,
@@ -45,7 +47,7 @@ function SignUp(props) {
         body: JSON.stringify({email, password})
       }).then((response) => response.json()).then((data) => {
         if (data.token) {
-          props.onSignIn(data.token);
+          login(data.token);
           navigate('/posts')
         }
       });

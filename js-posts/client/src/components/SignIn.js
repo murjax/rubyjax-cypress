@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './../AuthProvider';
 
 function SignIn(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const {
     register,
@@ -32,7 +34,7 @@ function SignIn(props) {
       body: JSON.stringify(formData)
     }).then((response) => response.json()).then((data) => {
       if (data.token) {
-        props.onSignIn(data.token);
+        login(data.token);
         navigate('/posts')
       }
     });

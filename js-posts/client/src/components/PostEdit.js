@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from './../AuthProvider';
 
 function PostEdit(props) {
   const [name, setName] = useState('');
@@ -8,6 +9,7 @@ function PostEdit(props) {
 
   const navigate = useNavigate();
   const params = useParams();
+  const { token } = useAuth();
 
   const {
     register,
@@ -33,7 +35,7 @@ function PostEdit(props) {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': props.authToken
+        'Authorization': token
       },
       body: JSON.stringify(formData)
     }).then((response) => response.json()).then((_data) => {
@@ -48,7 +50,7 @@ function PostEdit(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((response) => response.json()).then((data) => {
         setName(data.name);
@@ -57,7 +59,7 @@ function PostEdit(props) {
     }
 
     getPost();
-  }, [props.authToken, params.id]);
+  }, [token, params.id]);
 
   return (
     <div className="relative md:rounded-md bg-white shadow-md mb-10 p-2">

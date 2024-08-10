@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './../AuthProvider';
 
 function PostNew(props) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   const {
     register,
@@ -30,7 +32,7 @@ function PostNew(props) {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': props.authToken
+        'Authorization': token
       },
       body: JSON.stringify(formData)
     }).then((response) => response.json()).then((_data) => {

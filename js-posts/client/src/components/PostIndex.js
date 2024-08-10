@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useAuth } from './../AuthProvider';
 
 function PostIndex(props) {
   const [posts, setPosts] = useState([]);
+  const { token } = useAuth();
 
   const handleDelete = (postId) => {
     if (window.confirm('Are you sure?')) {
@@ -11,7 +13,7 @@ function PostIndex(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((_response) => {
         fetch('http://localhost:3001/posts', {
@@ -19,7 +21,7 @@ function PostIndex(props) {
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': props.authToken
+            'Authorization': token
           }
         }).then((response) => response.json()).then((data) => {
           setPosts(data);
@@ -35,7 +37,7 @@ function PostIndex(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((response) => response.json()).then((data) => {
         setPosts(data);
@@ -43,7 +45,7 @@ function PostIndex(props) {
     }
 
     getPosts();
-  }, [props.authToken]);
+  }, [token]);
 
   return (
     <div

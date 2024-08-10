@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import RequireAuth from './RequireAuth';
 import Home from './components/Home';
 import ErrorPage from './components/ErrorPage';
@@ -9,65 +8,52 @@ import PostNew from './components/PostNew';
 import PostEdit from './components/PostEdit';
 import PostShow from './components/PostShow';
 import Navigation from './components/Navigation';
+import AuthProvider from './AuthProvider'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css';
 
 function App() {
-  const [authToken, setAuthToken] = useState(null);
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home
-        authToken={authToken}
-        onSignOut={() => {
-          localStorage.clear();
-          setAuthToken(null);
-        }}
-      />,
+      element: <Home />,
       errorElement: <ErrorPage />,
       children: [
         {
           path: "/sign_in",
-          element: <SignIn onSignIn={(token) => {
-            localStorage.setItem('js-posts-auth-token', token);
-            setAuthToken(token);
-          }}/>,
+          element: <SignIn />,
           errorElement: <ErrorPage />,
         },
         {
           path: "/sign_up",
-          element: <SignUp onSignIn={(token) => {
-            localStorage.setItem('js-posts-auth-token', token);
-            setAuthToken(token);
-          }}/>,
+          element: <SignUp />,
           errorElement: <ErrorPage />,
         },
         {
           path: "/posts",
-          element: <RequireAuth authToken={authToken}>
-            <PostIndex authToken={authToken} />
+          element: <RequireAuth>
+            <PostIndex />
           </RequireAuth>,
           errorElement: <ErrorPage />,
         },
         {
           path: "/posts/:id",
-          element: <RequireAuth authToken={authToken}>
-            <PostShow authToken={authToken} />
+          element: <RequireAuth>
+            <PostShow />
           </RequireAuth>,
           errorElement: <ErrorPage />,
         },
         {
           path: "/posts/new",
-          element: <RequireAuth authToken={authToken}>
-            <PostNew authToken={authToken} />
+          element: <RequireAuth>
+            <PostNew />
           </RequireAuth>,
           errorElement: <ErrorPage />,
         },
         {
           path: "/posts/:id/edit",
-          element: <RequireAuth authToken={authToken}>
-            <PostEdit authToken={authToken} />
+          element: <RequireAuth>
+            <PostEdit />
           </RequireAuth>,
           errorElement: <ErrorPage />,
         }
@@ -75,19 +61,13 @@ function App() {
     },
   ]);
 
-  useEffect(() => {
-    const currentToken = localStorage.getItem('js-posts-auth-token');
-
-    if (currentToken) {
-      setAuthToken(currentToken);
-    }
-  }, [authToken]);
-
   return (
     <div>
-      <RouterProvider router={router}>
-        <Navigation authToken={authToken} />
-      </RouterProvider>
+      <AuthProvider>
+        <RouterProvider router={router}>
+          <Navigation />
+        </RouterProvider>
+      </AuthProvider>
     </div>
   );
 }

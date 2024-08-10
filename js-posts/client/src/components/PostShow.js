@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAuth } from './../AuthProvider';
 
 function PostShow(props) {
   const [post, setPost] = useState({});
@@ -7,6 +8,7 @@ function PostShow(props) {
   const [newComment, setNewComment] = useState('');
 
   const params = useParams();
+  const { token } = useAuth();
 
   const postComment = (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ function PostShow(props) {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': props.authToken
+        'Authorization': token
       },
       body: JSON.stringify(commentData)
     }).then(() => {
@@ -36,7 +38,7 @@ function PostShow(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((response) => response.json()).then((data) => {
         setComments(data);
@@ -51,7 +53,7 @@ function PostShow(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((_response) => {
         fetch(`http://localhost:3001/comments?post_id=${params.id}`, {
@@ -59,7 +61,7 @@ function PostShow(props) {
           mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': props.authToken
+            'Authorization': token
           }
         }).then((response) => response.json()).then((data) => {
           setComments(data);
@@ -75,7 +77,7 @@ function PostShow(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((response) => response.json()).then((data) => {
         setPost(data);
@@ -88,7 +90,7 @@ function PostShow(props) {
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': props.authToken
+          'Authorization': token
         }
       }).then((response) => response.json()).then((data) => {
         setComments(data);
@@ -97,7 +99,7 @@ function PostShow(props) {
 
     getPost();
     getComments();
-  }, [props.authToken, params.id]);
+  }, [token, params.id]);
 
   return (
     <div className="flex flex-col items-center relative md:rounded-md bg-white shadow-md mb-10 p-2">
