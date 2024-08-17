@@ -1,0 +1,62 @@
+<h1 class="text-4xl font-bold text-center">Posts</h1>
+
+<div
+  class="hidden md:flex md:flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border"
+  data-test-id="posts-full-table-container"
+>
+  <table
+    class="w-full text-left table-auto min-w-max"
+    data-test-id="posts-full-table"
+  >
+    <thead>
+      <tr>
+        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+          <p class="block text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+            Name
+          </p>
+        </th>
+        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+          <p class="block text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+            Title
+          </p>
+        </th>
+        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+          <p class="block text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+            Author
+          </p>
+        </th>
+        <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+          <p class="block text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+            Action
+          </p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td class="p-4 border-b border-blue-gray-50">
+            <p class="block text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              <%= post.name %>
+            </p>
+          </td>
+          <td class="p-4 border-b border-blue-gray-50">
+            <p class="block text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              <%= post.title %>
+            </p>
+          </td>
+          <td class="p-4 border-b border-blue-gray-50">
+            <p class="block text-sm antialiased font-normal leading-normal text-blue-gray-900">
+              <%= post.user.first_name %> <%= post.user.last_name %>
+            </p>
+          </td>
+          <td class="p-4 border-b border-blue-gray-50">
+            <%= link_to("View", post_path(post.id), class: "block text-sm antialiased font-medium leading-normal text-blue-400", data: { test_id: "show_post" }) %>
+            <%= link_to("Edit", edit_post_path(post.id), class: "block text-sm antialiased font-medium leading-normal text-blue-400", data: { test_id: "edit_post" }) %>
+            <%= link_to("Delete", post_path(post.id), method: "delete", data: { turbo_method: :delete, turbo_confirm: "Are you sure?", test_id: "delete_post" }, class: "block text-sm antialiased font-medium leading-normal text-red-400") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
