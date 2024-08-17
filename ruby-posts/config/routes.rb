@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
-  if Rails.env.test?
+  unless Rails.env.production?
     scope path: "/__cypress__", controller: "cypress" do
       post "force_login"
     end

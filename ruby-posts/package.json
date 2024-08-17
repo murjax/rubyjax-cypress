@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "cypress": "^13.13.3",
+    "cypress-on-rails": "^0.1.0"
+  }
+}
